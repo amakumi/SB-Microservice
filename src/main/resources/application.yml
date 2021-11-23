@@ -1,0 +1,15 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: HR-APP
+
+eureka:
+  client:
+    register-with-eureka: true # this is a server registry, NO NEED to set as true cuz its the server itself
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
