@@ -33,45 +33,23 @@ public class caffeineService {
     //@Autowired
     private caffeineConfig caffeineConfig;
 
-    //@Resource
-    @Autowired
-    private CaffeineController controller;
 
     private static final Logger LOG = LoggerFactory.getLogger(caffeineService.class);
 
     public Map<String, Object> showStats(@PathVariable String cacheName) {
         LOG.info("Attempting to open stats on HashMap function");
 
-        //CaffeineCache targetCache = (CaffeineCache) caffeineConfig.cacheManager().getCache(cacheName);
-
         CaffeineCache targetCache = (CaffeineCache) caffeine.getCache(cacheName);
 
-        //CacheStats targetCache = (CacheStats) caffeine.getCache(cacheName);
-        //caffeineConfig targetCache = (caffeineConfig) caffeine.getCache(cacheName);
-
-        //CacheStats stats = targetCache.getNativeCache().stats();
-
         CacheStats stats;
-        //LOG.info(controller.refreshCache(cacheName));
 
         if (targetCache != null) {
             LOG.info("Cache stats found. \n Cache Name: "+ cacheName);
             LOG.info("Caffeine cache content: \n Cache Name: "+ targetCache);
 
-            //stats = caffeineCache.getNativeCache().stats();
-            //targetCache.getNativeCache().stats();
-
-            //stats = targetCache.getNativeCache().stats();
-
             stats = targetCache.getNativeCache().stats();
 
-            //targetCache.cacheManager().getCache(cacheName);
-
             LOG.info(" \n the stats: "+ stats);
-
-            //LOG.debug(showStats(cacheName));
-            //stats.toString() = caffeineConfig.getStats3(cacheName);
-            ///stats = caffeineConfig.cacheManager().getCache()
 
             if (stats.requestCount() > 0) {
                 Map<String, Object> map = new HashMap<>(24,24);
