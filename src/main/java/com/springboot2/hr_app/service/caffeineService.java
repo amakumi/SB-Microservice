@@ -3,7 +3,6 @@ package com.springboot2.hr_app.service;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.springboot2.hr_app.config.caffeineConfig;
-import com.springboot2.hr_app.controller.CaffeineController;
 
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -95,7 +94,7 @@ public class caffeineService {
             return nativeCache.asMap().keySet();
         }
         else {
-            LOG.info("Stats not found. Have you accessed anything to the cache?");
+            LOG.info("Unable to find cache. Have you entered the correct cache?");
             return null;
         }
 
