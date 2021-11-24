@@ -102,11 +102,17 @@ public class CaffeineController {
         LOG.info("Cache invalidation complete!");
     }
 
-
     // get Caffeine to show statistics
     @GetMapping("/{cacheName}/stats")
     public Object getStats(@PathVariable String cacheName) {
         return service.showStats(cacheName);
+    }
+
+    // show available cached keys
+    @GetMapping("/getStats/{cacheName}")
+    public Object getCachedStats(@PathVariable String cacheName) {
+        LOG.info("Attempting to retrieve active cache...");
+        return service.getCachedKeys(cacheName);
     }
 
 }

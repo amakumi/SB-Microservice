@@ -1,9 +1,11 @@
 package com.springboot2.hr_app.service;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.springboot2.hr_app.config.caffeineConfig;
 import com.springboot2.hr_app.controller.CaffeineController;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,10 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Service
-//@CacheConfig()
+@AllArgsConstructor
 public class caffeineService {
 
     //@Resource
@@ -106,6 +109,18 @@ public class caffeineService {
             return Collections.emptyMap();
         }
 
-}
+    }
+
+    public Set<Object> getCachedKeys (String cacheName) {
+        LOG.info("Inside the cache service");
+        CaffeineCache cache = (CaffeineCache) caffeineConfig.cacheManager().getCache(cacheName);
+        assert cache != null;
+        Cache <Object, Object> nativeCache = cache.getNativeCache();
+
+        return nativeCache.asMap().keySet();
+
+    }
+
+
 
 }
