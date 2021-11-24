@@ -4,7 +4,6 @@
 
 package com.springboot2.hr_app.service;
 
-import com.springboot2.hr_app.HrAppApplication;
 import com.springboot2.hr_app.entity.locations;
 import com.springboot2.hr_app.repository.locationRepo;
 
@@ -78,11 +77,18 @@ public class locationService {
         locations currentInfo = repo.findById(loc.getLocation_id()).orElse(null);
         assert currentInfo != null;
         // currentInfo.setLocation_id(loc.getLocation_id());
-        currentInfo.setStreet_address(loc.getStreet_address());
-        currentInfo.setPostal_code(loc.getPostal_code());
-        currentInfo.setCity(loc.getCity());
-        currentInfo.setState_province(loc.getState_province());
-        currentInfo.setCountry_id(loc.getCountry_id());
+        if(currentInfo.getCountry_id() != null)
+        {
+            currentInfo.setStreet_address(loc.getStreet_address());
+            currentInfo.setPostal_code(loc.getPostal_code());
+            currentInfo.setCity(loc.getCity());
+            currentInfo.setState_province(loc.getState_province());
+            currentInfo.setCountry_id(loc.getCountry_id());
+        }
+        else {
+            System.out.println("\nNo country found. Make sure the country is listed!");
+            return null;
+        }
 
         System.out.println("\nLocation info updated");
 

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name="locations", schema = "hr")
 
 public class locations {
     /*@OneToOne
@@ -37,6 +38,9 @@ public class locations {
 
     @JoinColumn(name = "country_id", nullable = false)
     private String country_id;
+
+    @JoinColumn(name = "country_name", nullable = false)
+    private String country_name;
 
     //private countries countries;
 }
