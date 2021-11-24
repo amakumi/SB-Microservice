@@ -76,8 +76,6 @@ public class caffeineService {
             if (stats.requestCount() > 0) {
                 Map<String, Object> map = new HashMap<>(24,24);
 
-                LOG.info(controller.refreshCache(cacheName));
-
                 map.put(" Retrieving Cache for  ", cacheName);
                 assert false;
                 map.put(" Number of requests    ", stats.requestCount());
@@ -114,10 +112,14 @@ public class caffeineService {
     public Set<Object> getCachedKeys (String cacheName) {
         LOG.info("Inside the cache service");
         CaffeineCache cache = (CaffeineCache) caffeineConfig.cacheManager().getCache(cacheName);
-        assert cache != null;
-        Cache <Object, Object> nativeCache = cache.getNativeCache();
-
-        return nativeCache.asMap().keySet();
+        if (cache != null) {
+            Cache <Object, Object> nativeCache = cache.getNativeCache();
+            return nativeCache.asMap().keySet();
+        }
+        else {
+            LOG.info("Stats not found. Have you accessed anything to the cache?");
+            return null;
+        }
 
     }
 
