@@ -51,6 +51,12 @@ public class locationService {
     // Get by ID individually
     @Cacheable
     public locations getLocById(int id) {
+        LOG.info("\n Tryna access the location's information with an ID of: {} \n", id);
+        return repo.findById(id).orElse(null);
+    }
+
+    // non-cache GET
+    public locations getLocById2(int id) {
         LOG.info("\n Tryna get the location's information with an ID of: {} \n", id);
         return repo.findById(id).orElse(null);
     }

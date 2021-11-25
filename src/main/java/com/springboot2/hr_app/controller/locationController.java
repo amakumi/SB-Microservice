@@ -69,7 +69,7 @@ public class locationController {
     // REFRESH CACHE #1
     @GetMapping("/refresh/")
     public String refreshCache() {
-        service.refreshCache();;
+        service.refreshCache();
         return "=======================\n" +
                 "Caches are refreshed!\n" +
                 "=======================";
@@ -82,12 +82,19 @@ public class locationController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
 
-        return "==========================================================================================\n" +
-                "Cache information from Location ID of: "+ service.getLocById(key).getLocation_id() +
-                "\nwith a full address of: "+ service.getLocById(key).getStreet_address() +
-                "\nis refreshed!\n"+
-                "==========================================================================================";
+        if(cacheName != null && key != 0)
+        {
+            service.refreshCacheById(key);
+            return "==========================================================================================\n" +
+                    "Cache information from Location ID of: "+ service.getLocById2(key).getLocation_id() +
+                    "\nwith a full address of: "+ service.getLocById2(key).getStreet_address() +
+                    "\n                                    is refreshed!\n"+
+                    "==========================================================================================";
+        }
+        else {
+            return "Invalid location ID or cache name. Please enter a correct data.";
+        }
+
     }
 }
