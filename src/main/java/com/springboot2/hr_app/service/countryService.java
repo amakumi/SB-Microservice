@@ -135,6 +135,7 @@ public class countryService {
         //      .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
 
         //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
+        Objects.requireNonNull(caffeineConfig.cacheManager().getCache("countries")).evict(country_id);
 
         LOG.info("===\nAttempting to refresh cache from country ID:  "+ country_id);
     }
