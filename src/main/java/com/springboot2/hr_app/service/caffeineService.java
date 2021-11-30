@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 @AllArgsConstructor
@@ -86,12 +87,13 @@ public class caffeineService {
 
     }
 
-    public Set<Object> getCachedKeys (String cacheName) {
+    public ConcurrentMap<Object, Object> getCachedKeys (String cacheName) {
         LOG.info("Inside the cache service");
         CaffeineCache cache = (CaffeineCache) caffeineConfig.cacheManager().getCache(cacheName);
         if (cache != null) {
             Cache <Object, Object> nativeCache = cache.getNativeCache();
-            return nativeCache.asMap().keySet();
+            System.out.println(nativeCache.asMap());
+            return nativeCache.asMap();
         }
         else {
             LOG.info("Unable to find cache. Have you entered the correct cache?");

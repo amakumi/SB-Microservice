@@ -76,6 +76,7 @@ public class employeeService {
     public employees updateEmployee(employees employee) {
         employees existingEmployee = repo.findById(employee.getEmployee_id()).orElse(null);
         assert existingEmployee != null;
+        existingEmployee.setEmployee_id(employee.getEmployee_id());
         existingEmployee.setFirst_name(employee.getFirst_name());
         existingEmployee.setLast_name(employee.getLast_name());
         existingEmployee.setEmail(employee.getEmail());

@@ -131,8 +131,9 @@ public class countryService {
 
         repo.findById(country_id);
 
-        caffeineConfig.cacheManager().getCacheNames()
-                .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
+        //caffeineConfig.cacheManager().getCacheNames()
+        //      .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
+
         //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
 
         LOG.info("===\nAttempting to refresh cache from country ID:  "+ country_id);
