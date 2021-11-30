@@ -2,15 +2,12 @@ package com.springboot2.hr_app.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.cache.CacheManager;
 
 @Configuration
-@AllArgsConstructor
 public class caffeineConfig {
 
     @Bean
