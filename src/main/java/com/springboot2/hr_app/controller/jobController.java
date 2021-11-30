@@ -69,7 +69,7 @@ public class jobController {
     // REFRESH CACHE #1
     @GetMapping("/refresh/")
     public String refreshCache() {
-        service.refreshCache();;
+        service.refreshCache();
         return "=======================\n" +
                 "Caches are refreshed!\n" +
                 "=======================";
@@ -82,7 +82,7 @@ public class jobController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
+        service.refreshCacheById(cacheName,key);
 
         return "===================================================================\n" +
                 "Cache information from "+ service.getJobById(key).getJob_title() +" is refreshed!\n" +

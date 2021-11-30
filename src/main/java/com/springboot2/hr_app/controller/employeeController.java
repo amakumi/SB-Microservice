@@ -81,7 +81,7 @@ public class employeeController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
+        service.refreshCacheById(cacheName, key);
 
         return "==================================================================\n" +
                 "Cache information from Employee ID of: "+ service.getEmployeeById(key).getEmployee_id() +

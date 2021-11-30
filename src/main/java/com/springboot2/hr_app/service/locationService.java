@@ -113,13 +113,12 @@ public class locationService {
     // CLEAR CACHE PER VALUE
 
     @CacheEvict(value = "location", key = "#location_id")
-    public void refreshCacheById(int location_id) {
+    public void refreshCacheById(String cacheName, int location_id) {
 
         repo.findById(location_id);
+        caffeineConfig.cacheManager().getCache(cacheName);
 
-        caffeineConfig.cacheManager().getCacheNames()
-                .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
-        //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
+        (Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName))).evict(location_id);
 
         LOG.info("===\nAttempting to refresh cache from location ID of:  "+ location_id);
     }

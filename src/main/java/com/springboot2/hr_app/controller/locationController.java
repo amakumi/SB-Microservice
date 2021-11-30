@@ -85,7 +85,7 @@ public class locationController {
 
         if(cacheName != null && key != 0)
         {
-            service.refreshCacheById(key);
+            service.refreshCacheById(cacheName, key);
             return "==========================================================================================\n" +
                     "Cache information from Location ID of: "+ service.getLocById2(key).getLocation_id() +
                     "\nwith a full address of: "+ service.getLocById2(key).getStreet_address() +

@@ -95,13 +95,12 @@ public class jobService {
     // CLEAR CACHE PER VALUE
 
     @CacheEvict(value = "jobs", key = "#job_id")
-    public void refreshCacheById(int job_id) {
+    public void refreshCacheById(String cacheName, int job_id) {
 
         repo.findById(job_id);
+        caffeineConfig.cacheManager().getCache(cacheName);
 
-        caffeineConfig.cacheManager().getCacheNames()
-                .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
-        //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
+        (Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName))).evict(job_id);
 
         LOG.info("===\nAttempting to refresh cache from Job ID:  "+ job_id);
     }

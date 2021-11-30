@@ -69,7 +69,7 @@ public class regionController {
     // REFRESH CACHE #1
     @GetMapping("/refresh/")
     public String refreshCache() {
-        service.refreshCache();;
+        service.refreshCache();
         return "=======================\n" +
                 "Caches are refreshed!\n" +
                 "=======================";
@@ -82,7 +82,7 @@ public class regionController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
+        service.refreshCacheById(cacheName, key);
 
         return "===========================================================\n" +
                 "Cache information from region name of: "+ service.getRegionById(key).getRegion_name() +" is refreshed!\n" +

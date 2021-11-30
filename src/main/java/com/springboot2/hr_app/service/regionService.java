@@ -98,13 +98,12 @@ public class regionService {
     // CLEAR CACHE PER VALUE
 
     @CacheEvict(value = "region", key = "#region_id")
-    public void refreshCacheById(int region_id) {
+    public void refreshCacheById(String cacheName, int region_id) {
 
         repo.findById(region_id);
+        caffeineConfig.cacheManager().getCache(cacheName);
 
-        caffeineConfig.cacheManager().getCacheNames()
-                .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
-        //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
+        (Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName))).evict(region_id);
 
         LOG.info("===\nAttempting to refresh cache from region ID:  "+ region_id);
     }

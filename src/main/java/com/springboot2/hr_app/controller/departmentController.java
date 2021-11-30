@@ -62,7 +62,7 @@ public class departmentController {
     // REFRESH CACHE #1
     @GetMapping("/refresh/")
     public String refreshCache() {
-        service.refreshCache();;
+        service.refreshCache();
         return "=======================\n" +
                 "Caches are refreshed!\n" +
                 "=======================";
@@ -75,7 +75,7 @@ public class departmentController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
+        service.refreshCacheById(cacheName,key);
 
         return "=======================================\n" +
                 "Cache information from "+ service.getDeptById(key).getDepartment_name() +" is refreshed!\n" +
