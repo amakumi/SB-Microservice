@@ -1,6 +1,5 @@
 package com.springboot2.hr_app.controller;
 
-import com.springboot2.hr_app.HrAppApplication;
 import com.springboot2.hr_app.config.caffeineConfig;
 import com.springboot2.hr_app.config.caffeineConfig;
 import com.springboot2.hr_app.service.*;

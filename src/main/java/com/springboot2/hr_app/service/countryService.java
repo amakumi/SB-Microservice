@@ -10,11 +10,13 @@ import com.springboot2.hr_app.repository.countryRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 //import org.springframework.cache.caffeine.CaffeineCache;
 //import org.springframework.context.annotation.Bean;
+import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 //import org.springframework.web.bind.annotation.RequestParam;
@@ -127,15 +129,12 @@ public class countryService {
     }*/
 
     @CacheEvict(value = "countries", key = "#country_id")
-    public void refreshCacheById(String country_id) {
+    public void refreshCacheById(String cacheName, String country_id) {
 
         repo.findById(country_id);
+        caffeineConfig.cacheManager().getCache(cacheName);
 
-        //caffeineConfig.cacheManager().getCacheNames()
-        //      .forEach(key -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(key)).clear());
-
-        //.(cacheName -> Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName)).clear());
-        Objects.requireNonNull(caffeineConfig.cacheManager().getCache("countries")).evict(country_id);
+        (Objects.requireNonNull(caffeineConfig.cacheManager().getCache(cacheName))).evict(country_id);
 
         LOG.info("===\nAttempting to refresh cache from country ID:  "+ country_id);
     }

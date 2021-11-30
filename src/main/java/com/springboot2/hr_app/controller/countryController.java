@@ -89,7 +89,7 @@ public class countryController {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);
-        service.refreshCacheById(key);
+        service.refreshCacheById(cacheName, key);
 
         return "==========================================================\n" +
                 "Cache information from "+ service.getCountryById(key).getCountry_name() +" is refreshed!\n" +
