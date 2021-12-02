@@ -17,7 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 public class employees {
 
     @Id
-    //@GeneratedValue
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer employee_id;
 
     private String first_name;

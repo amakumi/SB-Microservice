@@ -4,26 +4,34 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.springboot2.hr_app.config.caffeineConfig;
 
+import com.springboot2.hr_app.entity.employees;
+import com.springboot2.hr_app.repository.employeeRepo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.caffeine.CaffeineCache;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class caffeineService {
+
+    // this service will take over the remaining services - employeeService first
+    //all logic will be put here
 
     //@Resource
     @Autowired
@@ -33,6 +41,11 @@ public class caffeineService {
     //@Autowired
     private caffeineConfig caffeineConfig;
 
+    @Autowired
+    private RestTemplate restTemp;
+
+    @Autowired
+    private employeeRepo empRepo;
 
     private static final Logger LOG = LoggerFactory.getLogger(caffeineService.class);
 
@@ -96,11 +109,31 @@ public class caffeineService {
             return nativeCache.asMap();
         }
         else {
-            LOG.info("Unable to find cache. Have you entered the correct cache?");
-            return null;
+           LOG.info("Unable to find cache. Have you entered the correct cache?");
+             return null;
         }
 
     }
+    // functions/methods for to hit to employee Service
+
+    @Cacheable(value = "employee")
+    public void addCache(Integer employeeId) {
+        LOG.info("Attempting to add cache into data...");
+        employees emp = empRepo.findByemployee_id(employeeId);
+
+        restTemp.put("http://EMPLOYEE-DATA-SERVICE/employee/"+ emp.getEmployee_id() ,employees.class);
+
+    }
+
+    @Cacheable(value = "employee")
+    public void getCache(Integer employeeId) {
+        LOG.info("Attempting to get cache into data...");
+        employees emp = empRepo.findByemployee_id(employeeId);
+
+        restTemp.getForEntity("http://EMPLOYEE-DATA-SERVICE/employee/" ,employees.class);
+
+    }
+
 
 
 
