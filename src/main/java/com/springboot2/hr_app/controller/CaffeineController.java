@@ -1,17 +1,17 @@
 package com.springboot2.hr_app.controller;
 
+import com.springboot2.hr_app.DTO.ResponseTemplate;
 import com.springboot2.hr_app.config.caffeineConfig;
-import com.springboot2.hr_app.config.caffeineConfig;
+import com.springboot2.hr_app.entity.employees;
 import com.springboot2.hr_app.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
+//import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 
 
@@ -37,8 +37,6 @@ public class CaffeineController {
     @Autowired
     private employeeService employeeService;
     @Autowired
-    private CacheManager caffeine;
-    @Resource
     private caffeineService service;
 
     private static final Logger LOG = LoggerFactory.getLogger(CaffeineController.class);
@@ -112,6 +110,16 @@ public class CaffeineController {
     public Object getCachedStats(@PathVariable String cacheName) {
         LOG.info("Attempting to retrieve active cache...");
         return service.getCachedKeys(cacheName);
+    }
+
+    // to employee service
+    // get Caffeine to show statistics
+
+    @GetMapping("/emp/{id}")
+    public employees getDataFromEmp(@PathVariable("id") Integer empId) {
+        LOG.info("Inside getDataFromEmp .. mapping out the region ID of this user...");
+
+        return service.getCache(empId);
     }
 
 }

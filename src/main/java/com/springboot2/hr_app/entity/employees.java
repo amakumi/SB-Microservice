@@ -7,18 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
-@Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-
+@Data
 public class employees {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer employee_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer employee_id;
 
     private String first_name;
 
@@ -30,17 +28,17 @@ public class employees {
 
     private String hire_date;
 
-    @JoinColumn(name = "job_id", nullable = false)
+    //@JoinColumn(name = "job_id", nullable = false)
     private String job_id;
 
     private Long salary;
 
     private Long commission_pct;
 
-    @JoinColumn(name = "department_id")
+    //@JoinColumn(name = "department_id")
     private Integer department_id;
 
-    @JoinColumn(name = "manager_id")
+    //@JoinColumn(name = "manager_id")
     private Integer manager_id;
 
 }

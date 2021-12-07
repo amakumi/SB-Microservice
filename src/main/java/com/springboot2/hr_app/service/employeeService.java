@@ -50,7 +50,7 @@ public class employeeService {
 
     // Get by ID individually
     @Cacheable
-    public employees getEmployeeById(int id) {
+    public employees getEmployeeById(Integer id) {
         LOG.info("\n Tryna get the employee's information with an ID of: {} \n", id);
         return repo.findById(id).orElse(null);
     }
@@ -61,7 +61,7 @@ public class employeeService {
 
     // DELETE REQUESTS
     @CacheEvict
-    public String deleteEmployee(int id) {
+    public String deleteEmployee(Integer id) {
         // repo.findById(id);
         repo.deleteById(id);
         return "\nEmployee no " + id + " is unfortunately fired... Sad";
@@ -104,8 +104,8 @@ public class employeeService {
 
     // CLEAR CACHE PER VALUE
 
-    @CacheEvict(value = "employees", key = "#employee_id")
-    public void refreshCacheById(String cacheName, int employee_id) {
+    @CacheEvict(value = "employee", key = "#employee_id")
+    public void refreshCacheById(String cacheName, Integer employee_id) {
 
         repo.findById(employee_id);
         caffeineConfig.cacheManager().getCache(cacheName);

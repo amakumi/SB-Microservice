@@ -40,7 +40,7 @@ public class employeeController {
     }
 
     @GetMapping("/{id}")
-    public employees findById(@PathVariable int id) {
+    public employees findById(@PathVariable Integer id) {
         return service.getEmployeeById(id);
     }
 
@@ -62,7 +62,7 @@ public class employeeController {
     // "DELETE" METHOD
 
     @DeleteMapping("/{id}")
-    public String deleteEmployee(@PathVariable int id) {
+    public String deleteEmployee(@PathVariable Integer id) {
         return "Employee " + id + " is fired. " + service.deleteEmployee(id);
     }
     // REFRESH CACHE #1
@@ -77,7 +77,7 @@ public class employeeController {
     // REFRESH BY ID #1
     @GetMapping("/refresh/{cacheName}/{key}")
     public String refreshByID(
-            @PathVariable("cacheName") final String cacheName, @PathVariable("key") final int key) {
+            @PathVariable("cacheName") final String cacheName, @PathVariable("key") final Integer key) {
         //key = country.getCountry_id();
 
         LOG.info("Attempting to refresh stats for: " + cacheName + "." + key);

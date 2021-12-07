@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableCaching
 public class HrAppApplication {
 
-    @LoadBalanced
+    //@LoadBalanced
     public static void main(String[] args) {
         //Logger.INFO(refreshCache.stats());
         SpringApplication.run(HrAppApplication.class, args);

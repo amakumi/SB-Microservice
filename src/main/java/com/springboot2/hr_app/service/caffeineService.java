@@ -1,7 +1,9 @@
 package com.springboot2.hr_app.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import com.springboot2.hr_app.DTO.ResponseTemplate;
 import com.springboot2.hr_app.config.caffeineConfig;
 
 import com.springboot2.hr_app.entity.employees;
@@ -116,25 +118,43 @@ public class caffeineService {
     }
     // functions/methods for to hit to employee Service
 
-    @Cacheable(value = "employee")
+    //@Cacheable(value = "employee")
     public void addCache(Integer employeeId) {
+
         LOG.info("Attempting to add cache into data...");
-        employees emp = empRepo.findByemployee_id(employeeId);
+        employees emp = empRepo.findById(employeeId).orElse(null);
 
-        restTemp.put("http://EMPLOYEE-DATA-SERVICE/employee/"+ emp.getEmployee_id() ,employees.class);
-
+        restTemp.put("http://EMPLOYEE-DATA-SERVICE/employee/" , employees.class);
     }
 
+    public void addCache2(Integer employeeId) {
+
+        LOG.info("Attempting to add cache into data...");
+        employees emp = empRepo.findById(employeeId).orElse(null);
+
+        restTemp.put("http://EMPLOYEE-DATA-SERVICE/employee/" , employees.class);
+    }
+
+    @JsonIgnore
     @Cacheable(value = "employee")
-    public void getCache(Integer employeeId) {
-        LOG.info("Attempting to get cache into data...");
-        employees emp = empRepo.findByemployee_id(employeeId);
+    public employees getCache(Integer employeeId) {
 
-        restTemp.getForEntity("http://EMPLOYEE-DATA-SERVICE/employee/" ,employees.class);
+        ResponseTemplate dto = new ResponseTemplate();
 
+        LOG.info("Attempting to get cache from DTO into data...");
+
+        employees emp = empRepo.findById(employeeId).orElse(null);
+
+        if (emp != null) {
+            restTemp.getForObject("http://EMPLOYEE-DATA-SERVICE/employee/" + emp.getEmployee_id() , employees.class);
+            dto.setEmployees(emp);
+            LOG.info("getCache service - were here");
+        }
+        else {
+            LOG.info("Employee info not found");
+        }
+
+        return emp;
     }
-
-
-
 
 }

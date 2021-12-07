@@ -1,6 +1,6 @@
 package com.springboot2.hr_app.config;
 
-import com.github.benmanes.caffeine.cache.Cache;
+/*import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,8 @@ public class cacheStats {
 
         System.out.println("-------------------------------------");
 
-    }
+    }*/
+
 
 
 
@@ -35,4 +36,5 @@ public class cacheStats {
        Cache cache = (Cache) cache.geti
    }*/
 
-}
+//
+// }
